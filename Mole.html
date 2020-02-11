@@ -1,0 +1,150 @@
+<html>
+
+	<head>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<style>
+			@import url('https://fonts.googleapis.com/css?family=Pacifico');
+			
+			
+			
+			.mole{ 
+				background-color:rgb(128, 64, 0);
+				border-radius:100px 100px 0px 0px;
+				height:100%;
+				width:10%;
+				position:absolute;
+				top:100%;
+				background-image:url(Mole.png);
+				background-size:100%;
+				background-repeat:no-repeat;								
+			}
+			
+				
+			.left_ear{
+				background-color:rgb(128, 64, 0);
+				border-radius:100px;
+				position:absolute;
+				float:right;
+				min-width:30%;
+				padding-top:30%;
+				z-index:-1;
+			}
+			
+			.right_ear{
+				background-color:rgb(128, 64, 0);
+				border-radius:100px;
+				position:absolute;
+				float:right;
+				min-width:30%;
+				padding-top:30%;
+				left:70%;
+				z-index:-1;
+			}
+			
+			#mole1 {left:10%; }
+			#mole2 {left:45%; } 
+			#mole3 {left:80%; }
+				
+			.score{
+				font-family: 'Pacifico', cursive;
+				font-size:10vh;
+				position:absolute;
+				left:5%;
+				z-index:-1;
+			}
+			.try_again{
+				font-family: 'Pacifico', cursive;
+				font-size:10vh;
+				position:absolute;
+				left:5%;
+				padding-top:10%;
+				z-index:-1;
+			}
+			
+
+		</style>
+					
+		<script>
+			$(document).ready(function(){
+				
+				var score = 0;	
+					startGame();				
+				
+				function startGame(){
+					score = 0;				
+					$('.mole').on('mouseenter mouseleave');
+					$('.mole').animate({'top':'0%'},5000, function(){
+						game_over();						
+				});
+				}
+				
+				function molespeed(){
+					$('.mole').animate({'top':'90%'},200);
+				
+				}
+				
+				function game_over(){
+					$('.score').html('Game Over your score was: '+score);								
+					$('.mole').unbind('mouseenter mouseleave');
+					$('.mole').animate({'top':'100%'},300);
+					
+					$('.try_again').show();
+						
+					$('.try_again').click(function(){
+					startGame();
+					});					
+					
+					
+				}
+				
+				$('.mole').hover(function(){														
+					
+					$(this).css('background-image', 'url(hurt.png)');				
+					$(this).stop().animate({'top':'100%'},300, function(){
+					
+						score = score - (-1);
+						$('.score').html('Score: ' + score);
+						$(this).css('background-image', 'url(Mole.png)');
+							
+						$(this).animate({'top':'0%'},5000,function(){
+								game_over();						
+						});
+					});					
+				});				
+				
+			});
+			
+
+
+			
+
+		</script>
+
+	</head>
+
+	<body>
+	
+		<div class="score" >Score: 0</div>
+
+		<div class="mole" id= "mole1"> 
+			<div class="left_ear"></div>
+			<div class="right_ear"></div>
+		</div>
+		
+		<div class="mole" id="mole2">
+			<div class="left_ear"></div>
+			<div class="right_ear"></div>
+		</div>
+		
+		<div class="mole" id="mole3">
+			<div class="left_ear"></div>
+			<div class="right_ear"></div>
+		</div>
+		
+		<div class="try_again" style="display: none;" onclick ="startGame()">Try Again</div>
+	</body>
+
+</html>
+
